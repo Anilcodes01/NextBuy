@@ -40,6 +40,8 @@ export default async function ProductDetail({ params }: { params: { id: string }
           <Image
             src={product.imageUrl}
             alt={product.name}
+            width={150}
+            height={48}
             className="h-[60vh] w-full  p-2 rounded object-contain rounded-md mb-"
           />
          

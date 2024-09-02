@@ -84,6 +84,8 @@ export default function ProductList() {
             >
               <Image
                 src={product.imageUrl}
+                width={150}
+                height={48}
                 alt={product.name}
                 className="h-48 w-full object-contain rounded-md mb-4"
               />
