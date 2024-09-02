@@ -4,6 +4,7 @@ import AddToCartButton from "@/components/addToCartBtn";
 import Appbar from "@/components/appbar";
 import Footer from "@/components/Footer";
 import { PrismaClient } from "@prisma/client";
+import Image from "next/image";
 import { notFound } from 'next/navigation';
 
 const prisma = new PrismaClient();
@@ -36,7 +37,7 @@ export default async function ProductDetail({ params }: { params: { id: string }
       </div>
       <div className="p-8  flex justify-around text-black">
         <div className="border p-4 rounded-lg shadow-lg bg-white">
-          <img
+          <Image
             src={product.imageUrl}
             alt={product.name}
             className="h-[60vh] w-full  p-2 rounded object-contain rounded-md mb-"

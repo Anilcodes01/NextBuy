@@ -6,6 +6,7 @@ import CategoryFilter from "../../components/CategoryFilter";
 import Appbar from "@/components/appbar";
 import Footer from "@/components/Footer";
 import Skeleton from "@/components/skeleton";
+import Image from "next/image";
 
 interface Product {
   id: string;
@@ -81,7 +82,7 @@ export default function ProductList() {
               onClick={() => handleCardClick(product.id)}
               className="border cursor-pointer p-4 rounded-lg shadow-lg bg-white hover:shadow-xl transition-shadow duration-200"
             >
-              <img
+              <Image
                 src={product.imageUrl}
                 alt={product.name}
                 className="h-48 w-full object-contain rounded-md mb-4"

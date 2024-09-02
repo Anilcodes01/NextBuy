@@ -29,22 +29,20 @@ export default function Signup() {
 
   return (
     <div className="bg-cyan-100 h-screen flex justify-center items-center">
-      <div className="bg-white shadow-2xl rounded-xl  h-auto p-5">
+      <div className="bg-white shadow-2xl rounded-xl h-auto p-5">
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-2 w-full items-center">
             <div className="font-bold text-black text-3xl">Sign Up</div>
             <div className="text-black">
-              Let's get started with your 30 days free trial
+              Let&apos;s get started with your 30 days free trial
             </div>
           </div>
           <div className="flex flex-col text-black gap-4 w-full">
             <div>
               <input
                 value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
-                className="rounded border w-full p-2 outline-none  text-md"
+                onChange={(e) => setName(e.target.value)}
+                className="rounded border w-full p-2 outline-none text-md"
                 type="text"
                 placeholder=" Name"
               />
@@ -52,9 +50,7 @@ export default function Signup() {
             <div>
               <input
                 value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
+                onChange={(e) => setEmail(e.target.value)}
                 className="rounded border w-full p-2 outline-none text-black text-md"
                 type="text"
                 placeholder=" Email"
@@ -63,9 +59,7 @@ export default function Signup() {
             <div>
               <input
                 value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
+                onChange={(e) => setPassword(e.target.value)}
                 className="rounded border w-full p-2 outline-none text-black text-md"
                 type="password"
                 placeholder=" Password"
@@ -81,7 +75,7 @@ export default function Signup() {
             </button>
             <div className="flex text-center items-center justify-center">
               <div className="text-black">Already have an account?</div>
-              <Link className="text-black ml-1" href={"/signin"}>
+              <Link className="text-black ml-1" href="/signin">
                 Login
               </Link>
             </div>
