@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
+import Providers from "./providers";
+import { CartProvider } from "@/app/context/CartContext";
 
 const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"], // Choose the subsets you need
+  weight: ["300", "400", "500", "600", "700"], // Select the font weights you need
+  variable: "--font-poppins", // Define a custom variable name for the font
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +24,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={poppins.className}>
+        <Providers>
+          <CartProvider>{children}</CartProvider>
+        </Providers>
+      </body>
     </html>
   );
 }
