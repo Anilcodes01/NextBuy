@@ -71,8 +71,8 @@ export default function ProductList() {
             className="border cursor-pointer p-4 rounded-lg shadow-lg bg-white hover:shadow-xl transition-shadow duration-200"
           >
             <Image
-            width={150}
-            height={150}
+            width={200}
+            height={200}
               src={product.imageUrl}
               alt={product.name}
               className="h-48 w-full object-contain rounded-md mb-4"
