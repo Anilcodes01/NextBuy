@@ -3,11 +3,10 @@
 import AddToCartButton from "@/components/addToCartBtn";
 import Appbar from "@/components/appbar";
 import Footer from "@/components/Footer";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/app/lib/prisma";
 import Image from "next/image";
 import { notFound } from 'next/navigation';
 
-const prisma = new PrismaClient();
 
 interface Product {
   id: string;

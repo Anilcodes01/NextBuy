@@ -64,7 +64,7 @@ export const authOptions = {
     },
     session: ({ session, token, user }: any) => {
       if (session && session.user) {
-        session.user.id = token.sub;
+        session.user.id = token.id;
         session.user.name = token.name;
       }
       console.log("Session Callback:", session);
