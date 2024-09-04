@@ -2,6 +2,7 @@
 
 import useCart from '@/app/context/CartContext';
 import Appbar from '@/components/appbar';
+import Footer from '@/components/Footer';
 import Image from 'next/image';
 import { useState, useMemo } from 'react';
 import { toast, Toaster } from "react-hot-toast";
@@ -38,7 +39,6 @@ const CartPage = () => {
     }
   };
 
- 
   const totalCost = useMemo(() => {
     return cartItems.reduce((total, item) => {
       return total + item.product.price * item.quantity;
@@ -47,39 +47,36 @@ const CartPage = () => {
 
   return (
     <div className="bg-slate-100 min-h-screen">
-      <div>
-        <Appbar />
-      </div>
+      <Appbar />
       <Toaster position="top-right" reverseOrder={false} />
-      <div className="text-black w-2/3 flex items-center rounded flex-col justify-center mx-auto p-4">
-        <h1 className="text-3xl font-bold mt-4 mb-4">Your Cart</h1>
+      <div className="text-black w-full sm:w-2/3 flex flex-col items-center justify-center mx-auto p-4">
+        <h1 className="text-2xl sm:text-3xl font-bold mt-4 mb-4">Your Cart</h1>
         {cartItems.length === 0 ? (
           <p className="text-lg">Your cart is empty</p>
         ) : (
-          <div className="gap-2 flex justify-center rounded-xl h-auto shadow-2xl w-full flex-col">
+          <div className="flex flex-col  gap-4 w-full">
             {cartItems.map((item) => (
               <div
                 key={item.id}
-                className="bg-white rounded-lg gap-2 p-4 flex justify-center items-center"
+                className="bg-white rounded-lg gap-2 p-4 flex flex-col sm:flex-row items-center shadow-md"
               >
-                <div className="flex gap-8 object-contain w-24 h-24">
+                <div className="w-full sm:w-24 h-24">
                   <Image
                     src={item.product.imageUrl}
                     alt={`Product Image for ${item.productId}`}
                     width={96}
                     height={96}
-                    className="object-contain rounded"
+                    className="object-contain h-full rounded"
                   />
                 </div>
-                <div className="ml-4 flex-grow">
-                  <p className="text-lg font-semibold">
+                <div className="flex flex-col sm:ml-4 w-full">
+                  <p className="text-lg font-semibold mt-5 md:mt-0 text-left sm:text-left">
                     {item.product.name}
                   </p>
-                  <p className="text-sm">
+                  <p className="text-sm text-left sm:text-left">
                     Product ID: {item.productId}
                   </p>
-
-                  <div className="flex gap-4 mt-2">
+                  <div className="flex justify-between sm:justify-start gap-4 mt-2 text-left sm:text-left">
                     <p className="text-gray-600">
                       Quantity: {item.quantity}
                     </p>
@@ -87,26 +84,24 @@ const CartPage = () => {
                       Price: ${(item.product.price * item.quantity).toFixed(2)}
                     </p>
                   </div>
-
-                  <div className="mt-2">
+                  <div className="flex justify-center  sm:justify-start gap-4 mt-4">
                     <button
                       onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}
-                      className="bg-slate-100 text-black font-semibold w-6 h-6 text-center rounded-full mr-2"
+                      className="bg-slate-100 text-black font-semibold w-6 h-6 text-center rounded-full"
                       disabled={loading === item.id}
                     >
                       +
                     </button>
-
                     <button
                       onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}
-                      className="bg-slate-100 text-black font-semibold w-6 h-6 rounded-full mr-8"
+                      className="bg-slate-100 text-black font-semibold w-6 h-6 text-center rounded-full"
                       disabled={loading === item.id}
                     >
                       -
                     </button>
                     <button
                       onClick={() => handleRemoveItem(item.id)}
-                      className="bg-slate-100 text-black w-28 rounded"
+                      className="bg-slate-100 text-black w-20 sm:w-28 rounded"
                       disabled={loading === item.id}
                     >
                       Remove
@@ -115,20 +110,24 @@ const CartPage = () => {
                 </div>
               </div>
             ))}
-            <div className="flex justify-center  mt-4 bg-gray-200 ">
-              <p className="text-lg p-2 font-semibold">Total:  ${totalCost.toFixed(2)}</p>
+            <div className="flex justify-center mt-4 bg-gray-200 rounded-lg p-4">
+              <p className="text-lg font-semibold">Total: ${totalCost.toFixed(2)}</p>
             </div>
           </div>
         )}
 
         {cartItems.length > 0 && (
-          <button onClick={() => {
-            toast.error('Failed to checkout!')
-          }} className="text-white bg-black p-2 mb-4 w-96 m-4 text-lg rounded-full">
+          <button
+            onClick={() => {
+              toast.error('Failed to checkout!');
+            }}
+            className="text-white bg-black p-2 mb-4 w-full sm:w-96 text-lg rounded-full mt-4"
+          >
             Proceed to Checkout
           </button>
         )}
       </div>
+      
     </div>
   );
 };

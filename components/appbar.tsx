@@ -9,6 +9,7 @@ export default function Appbar() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
 
   const handleDropdownToggle = () => {
     setDropdownOpen(!dropdownOpen);
@@ -18,43 +19,54 @@ export default function Appbar() {
     setDropdownOpen(false);
   };
 
+  const handleNavToggle = () => {
+    setNavOpen(!navOpen);
+  };
+
   return (
-    <div className="relative h-16 bg-white text-black shadow-2xl flex items-center justify-between">
+    <div className="relative h-16 bg-white text-black shadow-2xl flex items-center justify-between px-4 sm:px-8">
       <div
         onClick={() => {
           router.push("/");
         }}
-        className="ml-16 cursor-pointer font-bold text-2xl"
+        className="cursor-pointer font-bold text-xl sm:text-2xl"
       >
         NextBuy
       </div>
-      <div className="flex gap-8 mr-16">
-        <button
-          onClick={() => {
-            router.push("/");
-          }}
-        >
-          Home
-        </button>
-        <button
-          onClick={() => {
-            router.push("/allproducts");
-          }}
-        >
-          Products
-        </button>
-       
-        <button onClick={() => {
-          router.push('/aboutUs')
-        }}>About Us</button>
-        <button
-          onClick={() => {
-            router.push("/cart");
-          }}
-        >
-          Cart
-        </button>
-        <div className="relative cursor-pointer flex items-center">
+
+      <div className="flex items-center">
+        <div className="hidden sm:flex gap-8">
+          <button
+            onClick={() => {
+              router.push("/");
+            }}
+          >
+            Home
+          </button>
+          <button
+            onClick={() => {
+              router.push("/allproducts");
+            }}
+          >
+            Products
+          </button>
+          <button
+            onClick={() => {
+              router.push("/aboutUs");
+            }}
+          >
+            About Us
+          </button>
+          <button
+            onClick={() => {
+              router.push("/cart");
+            }}
+          >
+            Cart
+          </button>
+        </div>
+
+        <div className="relative flex items-center ml-4 sm:ml-8">
           {session?.user ? (
             <>
               <div onClick={handleDropdownToggle} className="flex items-center">
@@ -74,7 +86,7 @@ export default function Appbar() {
               </div>
               {dropdownOpen && (
                 <div
-                  className="absolute right-0 mt-48 w-48 bg-white border rounded-lg shadow-lg"
+                  className="absolute right-0 mt-2 sm:mt-48 w-48 bg-white border rounded-lg shadow-lg"
                   onMouseLeave={handleDropdownClose}
                 >
                   <div className="p-4 flex flex-col items-center">
@@ -95,8 +107,7 @@ export default function Appbar() {
                       onClick={() => {
                         signOut({
                           callbackUrl: '/signin'
-                        })
-                     
+                        });
                         handleDropdownClose();
                       }}
                       className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
@@ -112,12 +123,71 @@ export default function Appbar() {
               onClick={() => {
                 router.push("/signup");
               }}
+              className="hidden sm:block"
             >
-              signup
+              Signup
             </div>
           )}
         </div>
+
+        <div className="sm:hidden ml-4">
+          <button onClick={handleNavToggle} className="text-2xl">
+            ☰
+          </button>
+        </div>
       </div>
+
+      {navOpen && (
+        <div className="absolute top-16 left-0 w-full bg-white shadow-2xl flex flex-col items-start p-4 sm:hidden">
+          <button
+            onClick={() => {
+              router.push("/");
+              setNavOpen(false);
+            }}
+            className="mb-2 hover:bg-slate-100 w-full p-1  text-left"
+          >
+            Home
+          </button>
+          <button
+            onClick={() => {
+              router.push("/allproducts");
+              setNavOpen(false);
+            }}
+            className="mb-2 hover:bg-slate-100 w-full p-1  text-left"
+          >
+            Products
+          </button>
+          <button
+            onClick={() => {
+              router.push("/aboutUs");
+              setNavOpen(false);
+            }}
+            className="mb-2 hover:bg-slate-100 w-full p-1  text-left"
+          >
+            About Us
+          </button>
+          <button
+            onClick={() => {
+              router.push("/cart");
+              setNavOpen(false);
+            }}
+            className="mb-2 hover:bg-slate-100 w-full p-1  text-left"
+          >
+            Cart
+          </button>
+          {!session?.user && (
+            <button
+              onClick={() => {
+                router.push("/signup");
+                setNavOpen(false);
+              }}
+              className="mt-2"
+            >
+              Signup
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 }
