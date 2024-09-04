@@ -30,7 +30,7 @@ export default async function ProductDetail({ params }: { params: { id: string }
     }
 
     return (
-     <div className="bg-white min-h-screen">
+     <div className="bg-slate-100 min-h-screen">
       <div>
         <Appbar />
       </div>
@@ -41,7 +41,7 @@ export default async function ProductDetail({ params }: { params: { id: string }
             alt={product.name}
             width={450}
             height={48}
-            className="h-[60vh] w-full  p-2 rounded object-contain rounded-md mb-"
+            className="h-[60vh]   p-2 rounded object-contain rounded-md mb-"
           />
          
         </div>

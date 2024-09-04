@@ -4,7 +4,7 @@ import toast, { Toaster } from 'react-hot-toast';
 export default function Footer() {
 
   const notify = () => toast.error("Failed to subscribe to our Newsletter! ")
-    return <div className="text-black mt-4 flex justify-between items-center h-[32vh] bg-slate-100">
+    return <div className="text-black mt-4 flex justify-between items-center h-[32vh] bg-slate-200">
         <div className="flex flex-col  ml-16 gap-16">
           <div className="flex flex-col justify-start gap-2">
           <div>

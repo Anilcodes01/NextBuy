@@ -68,7 +68,7 @@ export default function ProductList() {
           <div
             key={product.id}
             onClick={() => handleCardClick(product.id)}
-            className="border cursor-pointer p-4 rounded-lg shadow-lg bg-white hover:shadow-xl transition-shadow duration-200"
+            className="border cursor-pointer p-4 rounded-lg shadow-2xl bg-white hover:shadow-xl transition-shadow duration-200"
           >
             <Image
             width={200}

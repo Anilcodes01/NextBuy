@@ -3,7 +3,7 @@ import Appbar from "@/components/appbar"
 
 
 export default function Skeleton()  {
-    return  <div className="bg-white min-h-screen">
+    return  <div className="bg-slate-100 min-h-screen">
     <div>
       <Appbar />
     </div>

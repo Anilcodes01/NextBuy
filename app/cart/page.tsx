@@ -46,7 +46,7 @@ const CartPage = () => {
   }, [cartItems]);
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-slate-100 min-h-screen">
       <div>
         <Appbar />
       </div>

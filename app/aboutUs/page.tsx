@@ -2,12 +2,12 @@ import Appbar from "@/components/appbar";
 
 export default function AboutUs() {
   return (
-    <div className="bg-white flex flex-col text-black min-h-screen">
+    <div className="bg-slate-100 flex flex-col text-black min-h-screen">
       <div>
         <Appbar />
       </div>
-      <div className="flex justify-center mb-8 mt-4 items-start">
-        <div className="m-5 p-4 w-2/3 shadow-2xl rounded">
+      <div className="flex  justify-center mb-8 mt-4 items-start">
+        <div className="m-5 bg-white p-4 w-2/3 shadow-2xl rounded">
           <div className="flex flex-col w-full">
             <h1 className="text-3xl font-bold">About Us</h1>
             <p className="mt-4">
