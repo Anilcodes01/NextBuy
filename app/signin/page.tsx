@@ -96,15 +96,8 @@ export default function Signin() {
                 Signup
               </Link>
             </div>
-            <div className="text-black">or</div>
-            <div>
-              <button
-                onClick={handleGoogleSignin}
-                className="text-white bg-black rounded w-full p-2"
-              >
-                Login with Google
-              </button>
-            </div>
+            
+            
           </div>
         </div>
       </div>

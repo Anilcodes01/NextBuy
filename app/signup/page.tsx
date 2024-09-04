@@ -4,14 +4,18 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
+import { toast, Toaster } from "react-hot-toast";
 
 export default function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false); 
   const router = useRouter();
 
   const handleSignup = async () => {
+    setLoading(true); 
     try {
       const response = await axios.post("/api/auth/signup", {
         name,
@@ -20,15 +24,35 @@ export default function Signup() {
       });
 
       if (response.status === 200) {
-        router.push("/");
+        toast.success("Signup successful!", { position: "top-right" });
+
+        const signInResponse = await signIn("credentials", {
+          redirect: false,
+          email,
+          password,
+        });
+
+        if (signInResponse && signInResponse.ok) {
+          toast.success("Signed in successfully!", { position: "top-right" });
+          router.push("/");
+        } else {
+          toast.error("Error while signing in. Please try again.", {
+            position: "top-right",
+          });
+        }
       }
     } catch (error) {
-      console.log("Error while signing up...");
+      toast.error("Error while signing up. Please try again.", {
+        position: "top-right",
+      });
+    } finally {
+      setLoading(false); 
     }
   };
 
   return (
     <div className="bg-cyan-100 h-screen flex justify-center items-center">
+      <Toaster position="top-right" reverseOrder={false} />
       <div className="bg-white shadow-2xl rounded-xl h-auto p-5">
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-2 w-full items-center">
@@ -45,6 +69,7 @@ export default function Signup() {
                 className="rounded border w-full p-2 outline-none text-md"
                 type="text"
                 placeholder=" Name"
+                disabled={loading} 
               />
             </div>
             <div>
@@ -54,6 +79,7 @@ export default function Signup() {
                 className="rounded border w-full p-2 outline-none text-black text-md"
                 type="text"
                 placeholder=" Email"
+                disabled={loading} 
               />
             </div>
             <div>
@@ -63,6 +89,7 @@ export default function Signup() {
                 className="rounded border w-full p-2 outline-none text-black text-md"
                 type="password"
                 placeholder=" Password"
+                disabled={loading} 
               />
             </div>
           </div>
@@ -70,8 +97,9 @@ export default function Signup() {
             <button
               onClick={handleSignup}
               className="text-white rounded w-full bg-black p-2"
+              disabled={loading} 
             >
-              Sign Up
+              {loading ? "Signing up..." : "Sign Up"}
             </button>
             <div className="flex text-center items-center justify-center">
               <div className="text-black">Already have an account?</div>

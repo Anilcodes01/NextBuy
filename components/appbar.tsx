@@ -110,10 +110,10 @@ export default function Appbar() {
           ) : (
             <div
               onClick={() => {
-                router.push("/signin");
+                router.push("/signup");
               }}
             >
-              Signin
+              signup
             </div>
           )}
         </div>
