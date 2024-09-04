@@ -76,27 +76,27 @@ export default function Appbar() {
                     alt="User Profile Picture"
                     width={28}
                     height={28}
-                    className="rounded-full border"
+                    className="rounded-full cursor-pointer border"
                   />
                 ) : (
-                  <div className="flex items-center justify-center h-7 w-7 rounded-full border bg-gray-200 text-black">
+                  <div className="flex items-center justify-center cursor-pointer h-7 w-7 rounded-full border bg-gray-200 text-black">
                     {session.user.name?.charAt(0).toUpperCase()}
                   </div>
                 )}
               </div>
               {dropdownOpen && (
                 <div
-                  className="absolute right-0 mt-2 sm:mt-48 w-48 bg-white border rounded-lg shadow-lg"
+                  className="absolute right-0 mt-48 sm:mt-48 w-48 bg-white border rounded-lg shadow-lg"
                   onMouseLeave={handleDropdownClose}
                 >
-                  <div className="p-4 flex flex-col items-center">
+                  <div className="p-4 flex flex-col cursor-pointer items-center">
                     {session.user.image && (
                       <Image
                         src={session.user.image}
                         alt="User Profile Picture"
                         width={40}
                         height={40}
-                        className="rounded-full border"
+                        className="rounded-full cursor-pointer border"
                       />
                     )}
                     <div className="mt-2 text-center">
