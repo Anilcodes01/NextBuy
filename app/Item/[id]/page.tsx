@@ -12,15 +12,15 @@ interface Product {
   description: string;
   price: number;
   imageUrl: string;
-  category?: string;
+  category?: string | null;
 }
 
 export default async function ProductDetail({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const { id } = params;
+  const { id } = await params;
 
   try {
     const product = await prisma.product.findUnique({
@@ -78,7 +78,7 @@ export default async function ProductDetail({
             | Browse Similar Products
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {similarProducts.map((similarProduct) => (
+              {similarProducts.map((similarProduct: Product) => (
                 <div
                   key={similarProduct.id}
                   className="border p-4 rounded-lg shadow-lg bg-white"

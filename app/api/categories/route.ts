@@ -14,8 +14,8 @@ export async function GET() {
       {
         message: "Categories fetched successfully!",
         categories: categories
-          .map((cat) => cat.category)
-          .filter((cat) => cat !== null),
+          .map((cat: { category: string | null }) => cat.category)
+          .filter((cat): cat is string => cat !== null),
       },
       { status: 200 }
     );

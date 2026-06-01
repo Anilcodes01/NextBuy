@@ -1,6 +1,5 @@
 "use client";
 
-import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -17,13 +16,19 @@ export default function Signup() {
   const handleSignup = async () => {
     setLoading(true); 
     try {
-      const response = await axios.post("/api/auth/signup", {
-        name,
-        email,
-        password,
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
       });
 
-      if (response.status === 200) {
+      if (response.ok) {
         toast.success("Signup successful!", { position: "top-right" });
 
         const signInResponse = await signIn("credentials", {

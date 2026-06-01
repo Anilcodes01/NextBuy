@@ -1,11 +1,12 @@
 import prisma from "@/app/lib/prisma";
 import { NextResponse } from "next/server";
 
-
-export async function DELETE(req: Request, {params}: {params: {itemId: string}} ) {
-  
+export async function DELETE(
+  req: Request,
+  { params }: { params: Promise<{ itemId: string }> }
+) {
   try {
-    const {itemId} = params
+    const { itemId } = await params;
 
     await prisma.cartItem.delete({
       where: { id: itemId },

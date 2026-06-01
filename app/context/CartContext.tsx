@@ -1,6 +1,5 @@
 'use client'
 import { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
 
 interface CartItem {
   id: string;
@@ -29,8 +28,9 @@ export const CartProvider = ({ children }: any) => {
 
   const fetchCart = async () => {
     try {
-      const { data } = await axios.get('/api/cart');
-      if (Array.isArray(data.cart)) { 
+      const response = await fetch('/api/cart');
+      const data = await response.json();
+      if (Array.isArray(data.cart)) {
         setCartItems(data.cart);
       } else {
         console.error('Unexpected data format:', data);
@@ -43,7 +43,13 @@ export const CartProvider = ({ children }: any) => {
 
   const addToCart = async (productId: string, quantity: number) => {
     try {
-      await axios.post('/api/cart/add', { productId, quantity });
+      await fetch('/api/cart/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ productId, quantity }),
+      });
       fetchCart();
     } catch (error) {
       console.error('Error adding to cart', error);
@@ -52,7 +58,13 @@ export const CartProvider = ({ children }: any) => {
 
   const updateCartItem = async (itemId: string, quantity: number) => {
     try {
-      await axios.put(`/api/cart/update/${itemId}`, { quantity });
+      await fetch(`/api/cart/update/${itemId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ quantity }),
+      });
       setCartItems(prevItems =>
         prevItems.map(item => 
           item.id === itemId ? { ...item, quantity } : item
@@ -65,7 +77,9 @@ export const CartProvider = ({ children }: any) => {
 
   const removeCartItem = async (itemId: string) => {
     try {
-      await axios.delete(`/api/cart/remove/${itemId}`);
+      await fetch(`/api/cart/remove/${itemId}`, {
+        method: 'DELETE',
+      });
       fetchCart();
     } catch (error) {
       console.error('Error removing cart item', error);

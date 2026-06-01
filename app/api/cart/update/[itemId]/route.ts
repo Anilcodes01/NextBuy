@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/app/lib/prisma';
 
-
-
-export async function PUT(req: Request, { params }: { params: { itemId: string } }) {
+export async function PUT(
+  req: Request,
+  { params }: { params: Promise<{ itemId: string }> }
+) {
   try {
-    const { itemId } = params;
+    const { itemId } = await params;
     const { quantity } = await req.json();
 
     if (quantity < 1) {

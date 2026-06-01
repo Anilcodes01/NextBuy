@@ -38,7 +38,8 @@ export async function POST(req: Request) {
 
     // Check if the item already exists in the cart
     const existingCartItem = cart.items.find(
-      (item) => item.productId === productId
+      (item: { productId: string; id: string; quantity: number }) =>
+        item.productId === productId
     );
 
     if (existingCartItem) {

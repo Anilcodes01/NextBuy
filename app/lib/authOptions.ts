@@ -1,12 +1,10 @@
 import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaClient } from "@prisma/client";
+import type { NextAuthOptions } from "next-auth";
+import prisma from "@/app/lib/prisma";
 import bcrypt from "bcryptjs";
 import GoogleProvider from "next-auth/providers/google";
-import { signIn } from "next-auth/react";
 
-const prisma = new PrismaClient();
-
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -22,7 +20,11 @@ export const authOptions = {
           placeholder: "Enter your password",
         },
       },
-      async authorize(credentials: any) {
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) {
+          return null;
+        }
+
         const { email, password } = credentials;
         const user = await prisma.user.findUnique({
           where: { email },
@@ -54,7 +56,7 @@ export const authOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    jwt: ({ token, user }: any) => {
+    jwt: ({ token, user }) => {
       if (user) {
         token.id = user.id;
         token.name = user.name;
@@ -62,17 +64,16 @@ export const authOptions = {
       console.log("JWT Callback:", token);
       return token;
     },
-    session: ({ session, token, user }: any) => {
+    session: ({ session, token }) => {
       if (session && session.user) {
-        session.user.id = token.id;
+        session.user.id = token.id as string;
         session.user.name = token.name;
       }
       console.log("Session Callback:", session);
-      return session
+      return session;
     },
   },
   pages: {
-    signIn: '/signin'
-  }
-  
+    signIn: "/signin",
+  },
 };
